@@ -13,7 +13,7 @@ def main():
 
     print("=" * 60)
     print("🚀 SettleSmart AI")
-    print("Sprint 4 - Emirates API Collector")
+    print("Sprint 6 - SQLite Job Repository")
     print("=" * 60)
 
     create_table()
@@ -30,35 +30,31 @@ def main():
         jobs,
         "emirates_jobs.csv"
     )
-print("=" * 60)
 
-print("DATABASE TEST")
+    print("=" * 60)
+    print("DATABASE TEST")
+    print("=" * 60)
 
-print("=" * 60)
+    print()
 
-print()
+    print("Total Jobs :", count_jobs())
 
-print("Total Jobs :", count_jobs())
+    print()
 
-print()
+    print("Dubai Jobs")
+    print("-" * 40)
 
-print("Dubai Jobs")
+    for job in find_by_city("Dubai")[:5]:
+        print(job)
 
-print("-" * 40)
+    print()
 
-for job in find_by_city("Dubai")[:5]:
+    print("IT Jobs")
+    print("-" * 40)
 
-    print(job)
+    for job in find_by_category("Information Technology")[:5]:
+        print(job)
 
-print()
-
-print("IT Jobs")
-
-print("-" * 40)
-
-for job in find_by_category("Information Technology")[:5]:
-
-    print(job)
 
 if __name__ == "__main__":
     main()

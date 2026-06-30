@@ -1,3 +1,4 @@
+from datetime import datetime
 from app.database.database import get_connection
 
 
@@ -17,7 +18,11 @@ def create_table():
         country TEXT,
         category TEXT,
         url TEXT,
-        description TEXT
+        description TEXT,
+
+        created_at TEXT,
+        last_seen TEXT,
+        is_active INTEGER
 
     )
     """)
@@ -31,11 +36,13 @@ def save_jobs(jobs):
     conn = get_connection()
     cursor = conn.cursor()
 
+    today = datetime.now().isoformat()
+
     for job in jobs:
 
         cursor.execute("""
         INSERT OR REPLACE INTO jobs
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             job.id,
             job.title,
@@ -45,37 +52,14 @@ def save_jobs(jobs):
             job.country,
             job.category,
             job.url,
-            job.description
+            job.description,
+            today,
+            today,
+            1
         ))
 
     conn.commit()
     conn.close()
-
-
-def get_all_jobs():
-
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("""
-    SELECT
-        id,
-        title,
-        company,
-        location,
-        city,
-        country,
-        category,
-        url,
-        description
-    FROM jobs
-    """)
-
-    rows = cursor.fetchall()
-
-    conn.close()
-
-    return rows
 
 
 def count_jobs():
@@ -98,10 +82,7 @@ def find_by_city(city):
     cursor = conn.cursor()
 
     cursor.execute("""
-    SELECT
-        title,
-        company,
-        city
+    SELECT title, company, city
     FROM jobs
     WHERE city = ?
     """, (city,))
@@ -119,10 +100,7 @@ def find_by_category(category):
     cursor = conn.cursor()
 
     cursor.execute("""
-    SELECT
-        title,
-        company,
-        category
+    SELECT title, company, category
     FROM jobs
     WHERE category = ?
     """, (category,))
