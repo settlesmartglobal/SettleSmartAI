@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Job:
-    id: str
+    external_id: str
     title: str
     company: str
     location: str

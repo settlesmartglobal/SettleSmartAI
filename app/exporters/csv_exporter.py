@@ -26,7 +26,7 @@ def export_jobs(jobs, filename):
         for job in jobs:
 
             writer.writerow([
-                job.id,
+                job.external_id,
                 job.title,
                 job.company,
                 job.location,

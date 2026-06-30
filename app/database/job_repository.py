@@ -10,14 +10,19 @@ def create_table():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS jobs (
 
-        id TEXT PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        external_id TEXT,
+
         title TEXT,
         company TEXT,
         location TEXT,
         city TEXT,
         country TEXT,
         category TEXT,
-        url TEXT,
+
+        url TEXT UNIQUE,
+
         description TEXT,
 
         created_at TEXT,
@@ -38,13 +43,41 @@ def save_jobs(jobs):
 
     today = datetime.now().isoformat()
 
+    inserted = 0
+    skipped = 0
+
     for job in jobs:
 
+        # Check whether this job already exists
+        cursor.execute(
+            "SELECT id FROM jobs WHERE url = ?",
+            (job.url,)
+        )
+
+        existing = cursor.fetchone()
+
+        if existing:
+            skipped += 1
+            continue
+
         cursor.execute("""
-        INSERT OR REPLACE INTO jobs
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO jobs (
+                external_id,
+                title,
+                company,
+                location,
+                city,
+                country,
+                category,
+                url,
+                description,
+                created_at,
+                last_seen,
+                is_active
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
-            job.id,
+            job.external_id,
             job.title,
             job.company,
             job.location,
@@ -58,9 +91,12 @@ def save_jobs(jobs):
             1
         ))
 
+        inserted += 1
+
     conn.commit()
     conn.close()
 
+    return inserted, skipped
 
 def count_jobs():
 

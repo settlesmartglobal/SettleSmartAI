@@ -1,59 +1,31 @@
-from app.database.job_repository import (
-    create_table,
-    save_jobs,
-    count_jobs,
-    find_by_city,
-    find_by_category
-)
-from app.collectors.emirates_api import collect
-from app.exporters.csv_exporter import export_jobs
+import sys
+
+from app.cli.commands import collect_emirates
 
 
 def main():
 
-    print("=" * 60)
-    print("🚀 SettleSmart AI")
-    print("Sprint 6 - SQLite Job Repository")
-    print("=" * 60)
+    if len(sys.argv) < 2:
 
-    create_table()
+        print()
 
-    jobs = collect()
+        print("Usage")
 
-    save_jobs(jobs)
+        print("-----")
 
-    print(f"Saved {len(jobs)} jobs into SQLite database.")
+        print("python3 -m app.main collect")
 
-    print(f"\nCollected {len(jobs)} jobs successfully.\n")
+        return
 
-    export_jobs(
-        jobs,
-        "emirates_jobs.csv"
-    )
+    command = sys.argv[1]
 
-    print("=" * 60)
-    print("DATABASE TEST")
-    print("=" * 60)
+    if command == "collect":
 
-    print()
+        collect_emirates()
 
-    print("Total Jobs :", count_jobs())
+    else:
 
-    print()
-
-    print("Dubai Jobs")
-    print("-" * 40)
-
-    for job in find_by_city("Dubai")[:5]:
-        print(job)
-
-    print()
-
-    print("IT Jobs")
-    print("-" * 40)
-
-    for job in find_by_category("Information Technology")[:5]:
-        print(job)
+        print("Unknown command")
 
 
 if __name__ == "__main__":

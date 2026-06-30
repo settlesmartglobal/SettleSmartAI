@@ -44,7 +44,7 @@ def collect():
     for item in data["data"]:
 
         job = Job(
-    id=str(item.get("id", "")),
+    external_id=str(item["id"]),
     title=item.get("title", ""),
     company=item.get("brand", ""),
     location=item.get("location", ""),
