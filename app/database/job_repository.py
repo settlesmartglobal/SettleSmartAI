@@ -146,3 +146,117 @@ def find_by_category(category):
     conn.close()
 
     return rows
+def search_jobs(keyword):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    search = f"%{keyword}%"
+
+    cursor.execute("""
+        SELECT title,
+               company,
+               city,
+               category
+        FROM jobs
+        WHERE
+            title LIKE ?
+            OR company LIKE ?
+            OR city LIKE ?
+            OR category LIKE ?
+        ORDER BY company, title
+    """, (
+        search,
+        search,
+        search,
+        search
+    ))
+
+    results = cursor.fetchall()
+
+    conn.close()
+
+    return results
+def count_companies():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT COUNT(DISTINCT company)
+        FROM jobs
+    """)
+
+    count = cursor.fetchone()[0]
+
+    conn.close()
+
+    return count
+def count_cities():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT COUNT(DISTINCT city)
+        FROM jobs
+    """)
+
+    count = cursor.fetchone()[0]
+
+    conn.close()
+
+    return count
+def count_categories():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT COUNT(DISTINCT category)
+        FROM jobs
+    """)
+
+    count = cursor.fetchone()[0]
+
+    conn.close()
+
+    return count
+def top_companies(limit=10):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT company,
+               COUNT(*)
+        FROM jobs
+        GROUP BY company
+        ORDER BY COUNT(*) DESC
+        LIMIT ?
+    """, (limit,))
+
+    results = cursor.fetchall()
+
+    conn.close()
+
+    return results
+def top_categories(limit=10):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT category,
+               COUNT(*)
+        FROM jobs
+        GROUP BY category
+        ORDER BY COUNT(*) DESC
+        LIMIT ?
+    """, (limit,))
+
+    results = cursor.fetchall()
+
+    conn.close()
+
+    return results
