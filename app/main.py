@@ -1,13 +1,14 @@
-from app.collectors.test_collector import test
+from app.inspectors.website_inspector import inspect
 
 
 def main():
-    print("=" * 50)
-    print("🚀 SettleSmart AI")
-    print("Job Engine v0.1")
-    print("=" * 50)
 
-    test()
+    print("=" * 60)
+    print("SettleSmart AI")
+    print("Website Inspector")
+    print("=" * 60)
+
+    inspect("https://www.emiratesgroupcareers.com")
 
 
 if __name__ == "__main__":
