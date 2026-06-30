@@ -1,23 +1,16 @@
 from dataclasses import dataclass
-from datetime import datetime
 
 
 @dataclass
 class Job:
-
     title: str
     company: str
     location: str
-    source: str
-    url: str
+    apply_url: str
 
-    salary: str = ""
-    employment_type: str = ""
-    posted_date: str = ""
-    collected_at: datetime = datetime.now()
-
-    match_score: float = 0
-
-    application_status: str = "Not Applied"
-
-    notes: str = ""
+    def display(self):
+        print("=" * 60)
+        print("Title    :", self.title)
+        print("Company  :", self.company)
+        print("Location :", self.location)
+        print("Apply    :", self.apply_url)

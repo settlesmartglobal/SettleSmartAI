@@ -19,4 +19,4 @@ def get(url: str):
 
     response.raise_for_status()
 
-    return response
+    return response.text

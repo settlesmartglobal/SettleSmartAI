@@ -1,4 +1,4 @@
-from app.inspectors.website_inspector import inspect
+from app.collectors.emirates_collector import collect
 
 
 def main():
@@ -8,7 +8,7 @@ def main():
     print("Website Inspector")
     print("=" * 60)
 
-    inspect("https://www.emiratesgroupcareers.com")
+    collect()
 
 
 if __name__ == "__main__":
