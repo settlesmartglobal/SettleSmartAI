@@ -1,0 +1,71 @@
+{
+    "Human Resources": [
+        "HR Operations",
+        "HR Shared Services",
+        "HR Business Partner",
+        "Payroll",
+        "Recruitment",
+        "Employee Relations",
+        "Compliance",
+        "MOHRE",
+        "WPS",
+        "Emiratisation",
+        "SAP HCM",
+        "SuccessFactors",
+        "Workday",
+        "Zoho People",
+        "HR Analytics",
+        "Vendor Management",
+        "Onboarding",
+        "Training",
+        "Process Improvement",
+        "Leadership",
+        "Generative AI"
+    ],
+
+    "Technology": [
+        "Python",
+        "Java",
+        "SQL",
+        "Docker",
+        "Kubernetes",
+        "AWS",
+        "Azure",
+        "Power BI",
+        "Machine Learning",
+        "Artificial Intelligence",
+        "Data Science",
+        "Networking",
+        "Linux",
+        "Cyber Security"
+    ],
+
+    "Finance": [
+        "SAP FICO",
+        "Accounting",
+        "Budgeting",
+        "Forecasting",
+        "Financial Analysis",
+        "Taxation"
+    ],
+
+    "Sales": [
+        "Business Development",
+        "Sales",
+        "CRM",
+        "Lead Generation",
+        "Negotiation",
+        "Customer Success",
+        "Account Management"
+    ],
+
+    "Operations": [
+        "Supply Chain",
+        "Procurement",
+        "Logistics",
+        "Inventory Management",
+        "Project Management",
+        "Lean",
+        "Six Sigma"
+    ]
+}

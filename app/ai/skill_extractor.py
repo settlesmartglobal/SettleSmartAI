@@ -1,42 +1,23 @@
+from app.ai.skill_library import SkillLibrary
+
+
 class SkillExtractor:
 
-    SKILLS = [
+    def __init__(self):
 
-        "HR Operations",
-        "HR Shared Services",
-        "HR Business Partner",
-        "Recruitment",
-        "Payroll",
-        "Compliance",
-        "MOHRE",
-        "WPS",
-        "Emiratisation",
-        "SAP HCM",
-        "SuccessFactors",
-        "Workday",
-        "Zoho People",
-        "HR Analytics",
-        "Employee Relations",
-        "Vendor Management",
-        "Training",
-        "Onboarding",
-        "Offboarding",
-        "MS Excel",
-        "Power BI",
-        "Process Improvement",
-        "Generative AI",
-        "Six Sigma"
-    ]
+        library = SkillLibrary()
+
+        self.skills = library.get_all_skills()
 
     def extract(self, text):
 
         found = []
 
-        lower_text = text.lower()
+        text = text.lower()
 
-        for skill in self.SKILLS:
+        for skill in self.skills:
 
-            if skill.lower() in lower_text:
+            if skill.lower() in text:
                 found.append(skill)
 
         return sorted(found)
