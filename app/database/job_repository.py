@@ -260,3 +260,16 @@ def top_categories(limit=10):
     conn.close()
 
     return results
+def get_all_jobs():
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM jobs")
+
+    jobs = cursor.fetchall()
+
+    conn.close()
+
+    return jobs

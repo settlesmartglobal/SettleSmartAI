@@ -4,28 +4,33 @@ from bs4 import BeautifulSoup
 
 def inspect():
 
+    print("Starting inspector...")
+
     url = "https://www.naukrigulf.com/jobs"
 
     headers = {
         "User-Agent": "Mozilla/5.0"
     }
 
+    print("Sending request...")
+
     response = requests.get(
         url,
         headers=headers,
-        timeout=30
+        timeout=10
     )
 
-    print("=" * 60)
-    print("NAUKRIGULF INSPECTOR")
-    print("=" * 60)
+    print("Response received")
 
-    print("Status :", response.status_code)
+    print("Status Code:", response.status_code)
+    print("Content Type:", response.headers.get("Content-Type"))
 
-    soup = BeautifulSoup(response.text, "lxml")
+    soup = BeautifulSoup(response.text, "html.parser")
 
-    print("Title :", soup.title.text.strip())
+    print("Title:", soup.title.text if soup.title else "No title")
+    print("Links:", len(soup.find_all("a")))
+    print("Scripts:", len(soup.find_all("script")))
 
-    print("Links :", len(soup.find_all("a")))
-    print("Scripts :", len(soup.find_all("script")))
-    print("Forms :", len(soup.find_all("form")))
+
+if __name__ == "__main__":
+    inspect()

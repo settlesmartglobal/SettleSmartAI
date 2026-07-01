@@ -1,4 +1,4 @@
-from app.collectors.emirates_api import collect
+from app.collectors.registry import COLLECTORS
 
 
 class CollectorService:
@@ -9,11 +9,13 @@ class CollectorService:
 
         jobs = []
 
-        emirates_jobs = collect()
+        for name, collector in COLLECTORS:
 
-        print(f"Emirates: {len(emirates_jobs)} jobs collected")
+            collected = collector()
 
-        jobs.extend(emirates_jobs)
+            print(f"{name}: {len(collected)} jobs collected")
+
+            jobs.extend(collected)
 
         print(f"\nTotal jobs collected: {len(jobs)}")
 
